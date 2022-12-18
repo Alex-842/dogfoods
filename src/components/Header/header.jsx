@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import Search from "../Search/search";
 import "./header.css";
+import {ReactComponent as DogImg} from "./logo_min.svg";
 
 export default ({user, setUser, products, setModalActive}) => {
     // хук состояния [свойство, функция в качестве аргумента которой передается новое значение нашего свойства] = useState(аргумент - изначальное значение свойства)
@@ -26,8 +27,12 @@ export default ({user, setUser, products, setModalActive}) => {
         setUser("");
     }
     return <header>
+        <div className="logoDog">
+        <DogImg/>    
         <a className="logo" href="">DogFood</a>
+        </div>
         <Search data={products}/>
+        
         {/* <input type="search" placeholder="Поиск..." className="search"/> */}
         <nav className="menu">
             {/* true && true */}

@@ -8,6 +8,8 @@ import Modal from "./components/Modal";
 
 import Home from "./pages/Home.jsx";
 import Catalog from "./pages/Catalog.jsx";
+import Banner from "./pages/Banner"; 
+import Hello from "./pages/Hello";
 
 import {Api} from "./Api";
 
@@ -67,8 +69,10 @@ const App = () => {
                     products={products} 
                     setModalActive={setModalActive}
                 />
+                <Hello/>
                 <main>
-                    {user ? <Catalog data={goods}/> : <Home data={smiles}/>}
+                    <Banner/>
+                    {/* {user ? <Catalog data={goods}/> : <Home data={smiles}/>} */}
                 </main>
                 <Footer/>
             </div>

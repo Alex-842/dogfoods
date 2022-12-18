@@ -5,8 +5,11 @@ header {
     align-items: center;
     gap: 30px;
 }
-.logo {
-    font-size: 1.5em;
+.logoDog {
+    font-size: 2em;
+    gap: 30px;
+    display: flex;
+    justify-content: space-between;
 }
 .search {
     background-color: transparent;

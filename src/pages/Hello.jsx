@@ -9,6 +9,7 @@ export default ({data}) => {
         <p>Всегда свежие лакомства ручной<br/> работы с доставкой по России и Миру</p>
         <button className="batn" type="button" >Каталог</button>
         </div>
+        
         </div>
     </>
 }

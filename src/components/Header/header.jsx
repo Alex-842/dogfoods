@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {Link} from "react-router-dom";
 import Search from "../Search/search";
 import "./header.css";
 import {ReactComponent as DogImg} from "./logo_min.svg";
@@ -28,15 +29,15 @@ export default ({user, setUser, products, setModalActive}) => {
     }
     return <header>
         <div className="logoDog">
-        <DogImg/>    
-        <a className="logo" href="">DogFood</a>
+        <Link className="logo" to="/"><DogImg/></Link>    
+        <Link className="logo" to="/">DogFood</Link>
         </div>
         <Search data={products}/>
         
         {/* <input type="search" placeholder="Поиск..." className="search"/> */}
         <nav className="menu">
             {/* true && true */}
-            {user && <a href="">{user}</a>}
+            {user && <Link to="/profile">{user}</Link>}
             {!user && <a href="" onClick={logIn}>Войти</a>}
             {user && <a href="" onClick={logOut}>Выйти</a>}
         </nav>

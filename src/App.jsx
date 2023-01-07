@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from "react";
+// Router - маршрут
+import {Routes, Route} from "react-router-dom";
 import "./style.css";
 import products from "./assets/data.json";
 
@@ -10,6 +12,8 @@ import Home from "./pages/Home.jsx";
 import Catalog from "./pages/Catalog.jsx";
 import Banner from "./pages/Banner"; 
 import Hello from "./pages/Hello";
+import Profile from "./pages/Profile";
+import Product from "./pages/Product";
 
 import {Api} from "./Api";
 
@@ -71,8 +75,13 @@ const App = () => {
                 />
                 <Hello/>
                 <main>
-                    <Banner/>
-                    {/* {user ? <Catalog data={goods}/> : <Home data={smiles}/>} */}
+                    {/* <Banner/> */}
+                    <Routes>
+                        <Route path="/" element={<Home data={smiles}/>}/>
+                        <Route path="/catalog" element={ <Catalog data={goods}/>}/>
+                        <Route path="/profile" element={<Profile setUser={setUser} user={user}/>}/>
+                        <Route path="/catalog/:id" element={<Product/>}/>
+                    </Routes>
                 </main>
                 <Footer/>
             </div>

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 // Router - маршрут
 import {Routes, Route} from "react-router-dom";
 import "./style.css";
-import products from "./assets/data.json";
+// import products from "./assets/data.json";
 
 import Header from "./components/Header/header";
 import Footer from "./components/Footer/footer";
@@ -10,8 +10,8 @@ import Modal from "./components/Modal";
 
 import Home from "./pages/Home.jsx";
 import Catalog from "./pages/Catalog.jsx";
-import Banner from "./pages/Banner"; 
-import Hello from "./pages/Hello";
+// import Banner from "./pages/Banner"; 
+import Hello from "./components/Hello/hello";
 import Profile from "./pages/Profile";
 import Product from "./pages/Product";
 
@@ -25,6 +25,7 @@ const App = () => {
     const [modalActive, setModalActive] = useState(false);
     const [api, setApi] = useState(new Api(token));
     const [goods, setGoods] = useState([]);
+    const [visibleGoods, setVisibleGoods] = useState(goods);
 
     useEffect(() => {
         console.log("Hello!")
@@ -63,14 +64,20 @@ const App = () => {
                 })
         }
     }, [api])
+    useEffect(() => {
+        setVisibleGoods(goods);
+    }, [goods])
+
 
     return (
         <>
             <div className="container">
                 <Header 
                     user={user} 
-                    setUser={setUser} 
-                    products={products} 
+                    setUser={setUser}
+                    goods={goods}
+                    searchGoods={setVisibleGoods} 
+                    // products={products} 
                     setModalActive={setModalActive}
                 />
                 <Hello/>
@@ -78,6 +85,7 @@ const App = () => {
                     {/* <Banner/> */}
                     <Routes>
                         <Route path="/" element={<Home data={smiles}/>}/>
+                        <Route path="/catalog" element={<Catalog data={visibleGoods}/>}/>
                         <Route path="/catalog" element={ <Catalog data={goods}/>}/>
                         <Route path="/profile" element={<Profile setUser={setUser} user={user}/>}/>
                         <Route path="/catalog/:id" element={<Product/>}/>

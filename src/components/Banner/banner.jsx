@@ -1,6 +1,8 @@
 import React from "react"; 
-import "./style.css";
-import {ReactComponent as DogImg} from "./img/logo_min.svg";
+import "./banner.css";
+import {ReactComponent as DogImg} from "../../pages/img/logo_min.svg";
+import pic from "./img/i.png"
+import pic1 from "./img/1.png"
 
 export default ({data}) => {
     return <>
@@ -9,8 +11,9 @@ export default ({data}) => {
     <div className="bannerOne">
         <h1>Подарок за<br/> первый заказ!</h1>
         <p>Легкое говяжье - пластины</p>
-    </div>
-    <DogImg/>
+    </div >
+    <img src={pic} alt="Собачки" />
+    {/* <DogImg/> */}
     </div>
 
     <div className="hit">
@@ -24,7 +27,7 @@ export default ({data}) => {
     <p>для дрессировки</p>
     <h2>от 840 рублей</h2> 
     </div>
-    <DogImg/>
+    <img src={pic1} alt="Собачки" />
 </div>
 
 <div className="bannerThree">
@@ -58,6 +61,5 @@ export default ({data}) => {
 </div>
 </div>
     </div>
-        
     </>
 }

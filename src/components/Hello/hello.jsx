@@ -1,5 +1,5 @@
 import React from "react";
-import "./style.css";
+import "./hello.css";
 import {Link} from "react-router-dom";
 
 export default ({data}) => {

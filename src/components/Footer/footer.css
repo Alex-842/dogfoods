@@ -1,6 +1,6 @@
 footer {
-    background-color: #222;
-    color: #fff;
+    background-color: rgb(243, 231, 5);
+    color: #222;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -10,4 +10,25 @@ footer {
 }
 .footer__text {
     text-align: right;
+}
+.Left{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.Right{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.logoDog {
+    font-size: 2em;
+    gap: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+.Chat{
+    display: flex;
+    gap: 15px;
 }

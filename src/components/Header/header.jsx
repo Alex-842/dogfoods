@@ -1,25 +1,15 @@
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import Search from "../Search/search";
 import "./header.css";
-import {ReactComponent as DogImg} from "./img/logo_min.svg";
+import Ctx from "../../Ctx";
+import {PlusCircle} from "react-bootstrap-icons";
+import { ReactComponent as DogImg } from "./img/logo_min.svg";
 
-export default ({user, setUser, products, goods, searchGoods, setModalActive}) => {
-    // хук состояния [свойство, функция в качестве аргумента которой передается новое значение нашего свойства] = useState(аргумент - изначальное значение свойства)
-    // const [user, setUser] = useState(localStorage.getItem("user8"));
-
-    // let user = localStorage.getItem("user8");
+export default () => {
+    const {user, setUser, setModalActive, PATH} = useContext(Ctx);
     const logIn = (e) => {
         e.preventDefault();
-        // let name = prompt("Как вас зовут?");
-        // if (name) {
-        //     localStorage.setItem("user8", name);
-        //     setUser(name);
-        // }
-        // setModalActive(function(previous) {
-        //     console.log("Активность модального окна:", previous)
-        //     return !previous;
-        // });
         setModalActive(prev => !prev);
     }
     const logOut = (e) => {
@@ -29,15 +19,16 @@ export default ({user, setUser, products, goods, searchGoods, setModalActive}) =
     }
     return <header>
         <div className="logoDog">
-        <Link className="logo" to="/"><DogImg/></Link>    
-        <Link className="logo" to="/">DogFood</Link>
+            <Link className="logo" to={PATH}><DogImg /></Link>
+            <Link className="logo" to={PATH}>DogFood</Link>
         </div>
-        <Search data={goods} searchGoods={searchGoods}/>
-        
+        <Search/>
+
         {/* <input type="search" placeholder="Поиск..." className="search"/> */}
         <nav className="menu">
             {/* true && true */}
-            {user && <Link to="/profile">{user}</Link>}
+            {user && <Link to={PATH + "add"}><PlusCircle style={{fontSize: "20px"}}/></Link>}
+            {user && user.name && <Link to={PATH + "profile"}>{user.name}</Link>}
             {!user && <a href="" onClick={logIn}>Войти</a>}
             {user && <a href="" onClick={logOut}>Выйти</a>}
         </nav>

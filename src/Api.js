@@ -23,6 +23,17 @@ class Api {
             body: JSON.stringify(body)
         });
     }
+    paswordReset(body) { // сброс пароля напочту
+        return fetch(`${this.path}/password-reset`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        });
+    }
+
+
     getProducts() {
         return fetch(`${this.path}/products`, {
             headers: {
@@ -55,6 +66,123 @@ class Api {
             }
         })
     }
-}
 
-export {Api};
+
+
+    patchProduct(id,body) {
+        return fetch(`${this.path}/products/${id}`, {
+            method: "PATH",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${this.token}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
+    likeProduct(id) {
+        return fetch(`${this.path}/products/likes/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${this.token}`
+            }
+        })
+    }
+
+    deletelikeProduct(id) {
+        return fetch(`${this.path}/products/likes/${id}`, {
+            method: "DELETE",
+            headers: {
+                "authorization": `Bearer ${this.token}`
+            }
+        })
+    }
+
+    addreviewProduct(id, body) {
+        return fetch(`${this.path}/products/review/${id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${this.token}`
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
+    deletereviewProduct(id) {
+        return fetch(`${this.path}/products/review/${id}`, {
+            method: "DELETE",
+            headers: {
+                "authorization": `Bearer ${this.token}`
+            }
+        })
+    }
+
+    getReview() {
+        return fetch(`${this.path}/products/review`, {
+            headers: {
+                "authorization": `Bearer ${this.token}`
+            }
+        })
+    }
+    getReview(id) {
+        return fetch(`${this.path}/products/review/${id}`, {
+            headers: {
+                "authorization": `Bearer ${this.token}`
+            }
+        })
+    }
+
+
+    getUsers() {
+        return fetch(`${this.path}/v2/${this.group}/users`, {
+            headers: {
+                "authorization": `Bearer ${this.token}`
+            }
+        })
+    }
+
+    getUser() {
+        return fetch(`${this.path}/v2/${this.group}/users/me`, {
+            headers: {
+                "authorization": `Bearer ${this.token}`
+            }
+        })
+    }
+
+    getUser(id) {
+        return fetch(`${this.path}/v2/${this.group}/users/${id}`, {
+            headers: {
+                "authorization": `Bearer ${this.token}`
+            }
+        })
+    }
+
+    patchUser(body) {
+        return fetch(`${this.path}/v2/${this.group}/users/me`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${this.token}`
+            },
+            body: JSON.stringify(body)
+
+        })
+    }
+
+    patcavatarhUser(body) {
+        return fetch(`${this.path}/v2/${this.group}/users/me/avatar`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${this.token}`
+            },
+            body: JSON.stringify(body)
+
+        })
+    }
+
+
+}
+export { Api };

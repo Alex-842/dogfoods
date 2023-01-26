@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 // Router - маршрут
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 // import products from "./assets/data.json";
@@ -16,6 +16,7 @@ import Hello from "./components/Hello/hello";
 import Profile from "./pages/Profile";
 import Product from "./pages/Product";
 import AddForm from "./pages/AddForm";
+import Favorites from "./pages/Favorites";
 
 import { Api } from "./Api";
 import Ctx from "./Ctx";
@@ -35,6 +36,7 @@ const [modalActive, setModalActive] = useState(false);
 const [api, setApi] = useState(new Api(token));
 const [goods, setGoods] = useState([]);
 const [visibleGoods, setVisibleGoods] = useState(goods);
+const [favorites, setFavorites] = useState([]);
 
 useEffect(() => {
     if (token) {
@@ -75,6 +77,10 @@ useEffect(() => {
 }, [api])
 useEffect(() => {
     setVisibleGoods(goods);
+    setFavorites(goods.filter(el => {
+        // Найти только те товары, в которых свойство likes ([]) включает в себя id моего пользователя
+        el.likes.includes(user._id);
+    }))
 }, [goods])
 
 
@@ -91,6 +97,8 @@ return (
             setApi: setApi,
             setModalActive: setModalActive,
             setGoods: setGoods,
+            setVisibleGoods: setVisibleGoods,
+            setFavorites: setFavorites,
             setVisibleGoods,
             PATH: PATH
     }}>
@@ -104,6 +112,7 @@ return (
                         <Route path={PATH + "profile"} element={<Profile/>}/>
                         <Route path={PATH + "catalog/:id"} element={<Product/>}/>
                         <Route path={PATH + "add"} element={<AddForm/>}/>
+                        <Route path={PATH + "favorites"} element={<Favorites/>}/>
                     </Routes>
             </main>
             <Footer />

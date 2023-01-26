@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import Search from "../Search/search";
 import "./header.css";
 import Ctx from "../../Ctx";
-import {PlusCircle} from "react-bootstrap-icons";
+import {PlusCircle, HeartFill} from "react-bootstrap-icons";
+import {Badge} from "react-bootstrap";
 import { ReactComponent as DogImg } from "./img/logo_min.svg";
 
 export default () => {
-    const {user, setUser, setModalActive, PATH} = useContext(Ctx);
+    const {user, setUser, setModalActive, PATH, favorites} = useContext(Ctx);
     const logIn = (e) => {
         e.preventDefault();
         setModalActive(prev => !prev);
@@ -28,6 +29,10 @@ export default () => {
         <nav className="menu">
             {/* true && true */}
             {user && <Link to={PATH + "add"}><PlusCircle style={{fontSize: "20px"}}/></Link>}
+            {user && <Link to={PATH + "favorites"} className="badge-link">
+                <HeartFill style={{fontSize: "20px"}}/>
+                <Badge>{favorites.length}</Badge>
+            </Link>}
             {user && user.name && <Link to={PATH + "profile"}>{user.name}</Link>}
             {!user && <a href="" onClick={logIn}>Войти</a>}
             {user && <a href="" onClick={logOut}>Выйти</a>}

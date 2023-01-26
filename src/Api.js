@@ -80,19 +80,9 @@ class Api {
         })
     }
 
-    likeProduct(id) {
+    setLike(id, isLike) {
         return fetch(`${this.path}/products/likes/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "authorization": `Bearer ${this.token}`
-            }
-        })
-    }
-
-    deletelikeProduct(id) {
-        return fetch(`${this.path}/products/likes/${id}`, {
-            method: "DELETE",
+            method: isLike ? "DELETE" : "PUT",
             headers: {
                 "authorization": `Bearer ${this.token}`
             }
@@ -182,7 +172,5 @@ class Api {
 
         })
     }
-
-
 }
 export { Api };

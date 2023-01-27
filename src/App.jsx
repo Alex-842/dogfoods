@@ -17,9 +17,11 @@ import Profile from "./pages/Profile";
 import Product from "./pages/Product";
 import AddForm from "./pages/AddForm";
 import Favorites from "./pages/Favorites";
+import Fake from "./pages/Fake";
 
 import { Api } from "./Api";
 import Ctx from "./Ctx";
+
 
 const PATH = "/";
 // const PATH = "/lk8-dogfood/";
@@ -79,6 +81,7 @@ useEffect(() => {
     setVisibleGoods(goods);
     setFavorites(goods.filter(el => {
         // Найти только те товары, в которых свойство likes ([]) включает в себя id моего пользователя
+        return el.likes &&
         el.likes.includes(user._id);
     }))
 }, [goods])
@@ -92,6 +95,7 @@ return (
             modalActive: modalActive,
             goods: goods,
             visibleGoods: visibleGoods,
+            favorites: favorites,
             setUser: setUser,
             setToken: setToken,
             setApi: setApi,
@@ -105,7 +109,7 @@ return (
         <div className="wrapper">
             <Header/>
             <Hello />
-            <main>
+            <main className="py-4">
                 <Routes>
                         <Route path={PATH} element={<Home data={smiles}/>}/>
                         <Route path={PATH + "catalog"} element={<Catalog data={smiles}/>}/>
@@ -113,6 +117,7 @@ return (
                         <Route path={PATH + "catalog/:id"} element={<Product/>}/>
                         <Route path={PATH + "add"} element={<AddForm/>}/>
                         <Route path={PATH + "favorites"} element={<Favorites/>}/>
+                        <Route path={PATH + "fake/:n/:title"} element={<Fake/>}/>
                     </Routes>
             </main>
             <Footer />

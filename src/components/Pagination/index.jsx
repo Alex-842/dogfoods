@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {CaretRightFill, CaretLeftFill} from "react-bootstrap-icons";
 import "./style.css";
 

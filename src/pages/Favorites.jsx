@@ -20,7 +20,8 @@ export default () => {
                     </Link>)}
                 </div>
             </>
-            : <div className="empty-block">
+            :
+            <div className="empty-block">
                 <EmojiFrown/>
                 <p>Вы еще не добавили ни одного любимого товара</p>
                 <Link to={PATH+"catalog"} className="btn">В каталог</Link>

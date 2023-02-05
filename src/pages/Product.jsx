@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import {useParams, Link, useNavigate, Navigate} from "react-router-dom";
-import {Trash3} from "react-bootstrap-icons";
+import { useParams, Link, useNavigate, Navigate } from "react-router-dom";
+import { Trash3 } from "react-bootstrap-icons";
 import Review from "../components/Review/Review";
 import Ctx from "../Ctx";
+import "./style.css"
 
-export default ({}) => {
-    const {id} = useParams();
+export default ({ }) => {
+    const { id } = useParams();
     const [product, setProduct] = useState({});
     // По id товара получаются данные о товаре для отрисовки страницы с товаром
-    const {api, PATH, user, setGoods} = useContext(Ctx);
+    const { api, PATH, user, setGoods } = useContext(Ctx);
     const navigate = useNavigate();
     useEffect(() => {
         api.getProduct(id)
@@ -36,19 +37,42 @@ export default ({}) => {
             })
     }
     return <>
-        {product && product.author && product.author._id === user._id && <button 
-            onClick={remove} 
-            className="btn" 
+        {product && product.author && product.author._id === user._id && <button
+            onClick={remove}
+            className="btn"
             style={btnSt}
         >
-            <Trash3/>
+            <Trash3 />
         </button>}
         <h1>{product.name || "Страница товара"}</h1>
-        <p>{id}</p>
-        <Link to={PATH + "catalog"}>Назад</Link>
+        <p>Артикул товара: {id}</p>
+        <Link to={PATH + "catalog"}><button className="batn" type="button" >Назад</button></Link>
+
+        <div className="productPage">
+
+            <img className="productImg" src={product.pictures} alt="Изображение товара"></img>
+
+            <div className="productRight">
+
+                <div className="productPrice">
+                    <h2>Стоимость</h2>
+                    <h3>{`${product.price} ₽`}</h3>
+                    {/* <p>{product.wight} грамм</p> */}
+                </div>
+                <button className="yellow" type="button" ><b>В корзину</b></button>
+
+            </div>
+
+        </div>
+
+        <div className="productDescriptions">
+            <h2>Описание</h2>
+            <p>{product.description}</p>
+        </div>
+
         <h2>Отывы</h2>
         <div className="reviews">
-            {product.reviews && product.reviews.length > 0 && product.reviews.map((el, i) => <Review {...el} key={i}/>)}
-                    </div>
+            {product.reviews && product.reviews.length > 0 && product.reviews.map((el, i) => <Review {...el} key={i} />)}
+        </div>
     </>
 }

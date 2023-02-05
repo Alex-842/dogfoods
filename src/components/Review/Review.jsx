@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams, Link, useNavigate, Navigate } from "react-router-dom";
 import { Star, StarFill } from "react-bootstrap-icons"
+import Ctx from "../../Ctx";
 
 export default ({author, rating, created_at}) => {
+    const { api, PATH, user, setGoods } = useContext(Ctx);
+    const [authorid, setAuthorid] = useState({});
     const setRating = (n) => {
         let stars = [];
         for (let i = 0; i < n; i++) {
@@ -12,8 +16,21 @@ export default ({author, rating, created_at}) => {
         }
         return stars;
     }
+
+    useEffect(() => {
+        api.getUser(author)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.error) {
+                    setAuthorid(data.name);
+                    console.log(data.name);
+                    
+                }
+            })
+    }, [])
+
     return <>
-        <h3>{author || ""}</h3>
+        <h3>{JSON.stringify(authorid) || ""}</h3>
         <div>{setRating(rating)}</div>
         <div>{new Date(created_at).toLocaleString()}</div>
     </>

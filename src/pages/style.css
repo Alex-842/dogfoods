@@ -2,6 +2,37 @@
     height: 150px;
     padding: 10px 29px ;
 }
+.productPage{
+    display: flex;
+}
+
+.productImg{
+    height: auto;
+    width: 450px;
+    margin:40px 200px 40px 0;
+}
+
+.productRight{
+    display: flex;
+    gap: 50px;
+}
+
+button.yellow{
+    background-color: rgb(243, 231, 5);
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid rgb(34, 34, 31);
+    
+}
+
+button.yellow:hover{
+    background-color: rgb(215, 204, 3);
+}
+.productPrice{
+    /* color: rgb(242, 37, 37); */
+}
+
 
 
 

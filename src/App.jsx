@@ -18,6 +18,7 @@ import Product from "./pages/Product";
 import AddForm from "./pages/AddForm";
 import Favorites from "./pages/Favorites";
 import Fake from "./pages/Fake";
+import Basket from "./pages/Basket";
 
 import { Api } from "./Api";
 import Ctx from "./Ctx";
@@ -39,6 +40,7 @@ const [api, setApi] = useState(new Api(token));
 const [goods, setGoods] = useState([]);
 const [visibleGoods, setVisibleGoods] = useState(goods);
 const [favorites, setFavorites] = useState([]);
+const [basket, setBasket] = useState(localStorage.getItem("basket8") ? JSON.parse(localStorage.getItem("basket8")) : []);
 
 useEffect(() => {
     if (token) {
@@ -73,12 +75,12 @@ useEffect(() => {
         api.getProducts()
             .then(res => res.json())
             .then(data => {
+                setVisibleGoods(data.products);
                 setGoods(data.products);
             })
     }
 }, [api])
 useEffect(() => {
-    setVisibleGoods(goods);
     setFavorites(goods.filter(el => {
         // Найти только те товары, в которых свойство likes ([]) включает в себя id моего пользователя
         return el.likes &&
@@ -86,6 +88,10 @@ useEffect(() => {
     }))
 }, [goods])
 
+useEffect(() => {
+    console.log("basket", basket);
+    localStorage.setItem("basket8", JSON.stringify(basket));
+}, [basket]);
 
 return (
     <Ctx.Provider value={{
@@ -104,7 +110,9 @@ return (
             setVisibleGoods: setVisibleGoods,
             setFavorites: setFavorites,
             setVisibleGoods,
-            PATH: PATH
+            PATH: PATH,
+            basket,
+            setBasket
     }}>
         <div className="wrapper">
             <Header/>
@@ -117,6 +125,7 @@ return (
                         <Route path={PATH + "catalog/:id"} element={<Product/>}/>
                         <Route path={PATH + "add"} element={<AddForm/>}/>
                         <Route path={PATH + "favorites"} element={<Favorites/>}/>
+                        <Route path={PATH + "basket"} element={<Basket/>}/>
                         <Route path={PATH + "fake/:n/:title"} element={<Fake/>}/>
                     </Routes>
             </main>

@@ -5,11 +5,11 @@ import Review from "../components/Review/Review";
 import Ctx from "../Ctx";
 import "./style.css"
 
-export default ({ }) => {
+export default ({}) => {
     const { id } = useParams();
     const [product, setProduct] = useState({});
     // По id товара получаются данные о товаре для отрисовки страницы с товаром
-    const { api, PATH, user, setGoods } = useContext(Ctx);
+    const { api, PATH, user, setGoods, setBasket } = useContext(Ctx);
     const navigate = useNavigate();
     useEffect(() => {
         api.getProduct(id)
@@ -36,6 +36,23 @@ export default ({ }) => {
                 }
             })
     }
+
+    
+
+    const buy = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setBasket(prev => {
+            const test = prev.filter(el => el.id === id)
+            console.log(test);
+            if (test.length) {
+                return prev;
+            } else {
+                return [...prev, {id: id, cnt: 1}]
+            }
+        })
+    }
+
     return <>
         {product && product.author && product.author._id === user._id && <button
             onClick={remove}
@@ -59,8 +76,7 @@ export default ({ }) => {
                     <h3>{`${product.price} ₽`}</h3>
                     {/* <p>{product.wight} грамм</p> */}
                 </div>
-                <button className="yellow" type="button" ><b>В корзину</b></button>
-
+                <button className="yellow"  type="button" onClick={buy}><b>В корзину</b></button> 
             </div>
 
         </div>

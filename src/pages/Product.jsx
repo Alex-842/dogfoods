@@ -5,7 +5,7 @@ import Review from "../components/Review/Review";
 import Ctx from "../Ctx";
 import "./style.css"
 
-export default ({}) => {
+export default ({ }) => {
     const { id } = useParams();
     const [product, setProduct] = useState({});
     // По id товара получаются данные о товаре для отрисовки страницы с товаром
@@ -37,7 +37,7 @@ export default ({}) => {
             })
     }
 
-    
+
 
     const buy = (e) => {
         e.preventDefault();
@@ -48,10 +48,11 @@ export default ({}) => {
             if (test.length) {
                 return prev;
             } else {
-                return [...prev, {id: id, cnt: 1}]
+                return [...prev, { id: id, cnt: 1 }]
             }
         })
     }
+    console.log({ product })
 
     return <>
         {product && product.author && product.author._id === user._id && <button
@@ -68,24 +69,26 @@ export default ({}) => {
         <div className="productPage">
 
             <img className="productImg" src={product.pictures} alt="Изображение товара"></img>
-
             <div className="productRight">
-
                 <div className="productPrice">
-                    <h2>Стоимость</h2>
-                    <h3>{`${product.price} ₽`}</h3>
-                    {/* <p>{product.wight} грамм</p> */}
+
+                    <div >
+                        <h2>Стоимость</h2>
+                        <h3>{`${product.price} ₽`}</h3>
+                    </div>
+                    <button className="yellow" type="button" onClick={buy}><b>В корзину</b></button>
                 </div>
-                <button className="yellow"  type="button" onClick={buy}><b>В корзину</b></button> 
+                <div>
+                    <h2>Характеристики</h2>
+                    <p>Вес {product.wight} </p>
+                    <p>Цена {product.price} за {product.wight}</p>
+                </div>
             </div>
-
         </div>
-
         <div className="productDescriptions">
             <h2>Описание</h2>
             <p>{product.description}</p>
         </div>
-
         <h2>Отывы</h2>
         <div className="reviews">
             {product.reviews && product.reviews.length > 0 && product.reviews.map((el, i) => <Review {...el} key={i} />)}
